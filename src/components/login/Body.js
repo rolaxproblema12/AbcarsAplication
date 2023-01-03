@@ -1,11 +1,13 @@
 import { View, Text,SafeAreaView,TextInput,StyleSheet,Button, Image} from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Buttonn from './Buttonn'
 import { useFormik } from 'formik';
 import * as Yup from "yup";
+import { SelectList } from 'react-native-dropdown-select-list';
 
 export default function Body(props) {
     const {navigation} = props;
+    const [location,setLocation] = useState('Serdan')
 
     const formik = useFormik({
         initialValues: initialValues(),
@@ -16,7 +18,12 @@ export default function Body(props) {
             }
         
     });
-
+    const data = [
+        {key:'Zacatelco', value: 'Zacatelco'},
+        {key:'Angelopolis', value:'Angelopolis'},
+        {key:'Serdan',value:'Serdan'}
+    ]
+ 
 return (
     <SafeAreaView style= {styles.container}>
         <View>
@@ -41,7 +48,13 @@ return (
                 value={formik.values.password}
                 onChangeText = {(text) => formik.setFieldValue('password',text)}   
             />
-            <Buttonn navigation={navigation}></Buttonn>
+            <SelectList
+                setSelected={setLocation}
+                data={data}
+                placeholder={'Selecciona una Ubicacion'}
+                // defaultOption={{key:'Serdan',value:'Serdan'}}
+            />
+            <Buttonn navigation={navigation}  location = {location}></Buttonn>
 
             <Text style={styles.text}>{formik.errors.username}</Text>
             <Text style={styles.text}>{formik.errors.password}</Text>
