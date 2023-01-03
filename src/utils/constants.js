@@ -1,0 +1,1 @@
+export const API_HOST = "https://sandbox.abcars.mx/abcarsbackend/api/vehicle_location";
