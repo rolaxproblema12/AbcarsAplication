@@ -3,10 +3,9 @@ import { Text, View, StyleSheet, Button, Alert,TextInput,SafeAreaView } from 're
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import {postVehicles} from '../api/vehicles';
 import { getDbConnection, getTasks, insertQr } from '../utils/db';
-// import Navigation from './src/navigation/Navigation';
 
-export default function ScaanQr(props) {
-  const {navigation}=props
+export default function ScaanQrSalidaVehicle(props) {
+  const {navigation} = props;
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   async function createQr(name){
@@ -14,7 +13,7 @@ export default function ScaanQr(props) {
     if(name === " "){
       Alert.alert(
         'Succes',
-        'Error no hay un Id',[
+        'Automovil Ingresado Correctamente',[
           {
             text:'Ok',
 
@@ -33,7 +32,7 @@ export default function ScaanQr(props) {
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
-            style: "suscces"
+            style: "cancel"
           }
         ]
       )
@@ -88,14 +87,6 @@ export default function ScaanQr(props) {
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && <Button title={'Tomar Nuevamente Scanner'} onPress={() => setScanned(false)} />}
-      <TextInput 
-          style={styles.input} 
-          placeholder="Ingrese Kilometraje"
-          keyboardType="number-pad"
-          autoCapitalize='none'
-          // value={formik.values.username}
-          // onChangeText = {(text) => formik.setFieldValue('username',text)}    
-      />
     </View>
     // {/* <View>
 
