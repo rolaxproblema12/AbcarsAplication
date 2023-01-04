@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, Alert,TextInput,SafeAreaView } from 're
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import {postVehicles} from '../api/vehicles';
 import { getDbConnection, getTasks, insertQr } from '../utils/db';
+import useAuth from '../hooks/useAuth';
 // import Navigation from './src/navigation/Navigation';
 
 export default function ScaanQr(props) {
@@ -12,21 +13,15 @@ export default function ScaanQr(props) {
   const [mileage,setMileage] = useState(10000);
   const [name,setName] = useState('Rolando');
   const [location,setLocation] = useState('serdan');
+  const [idVehicle,setIdVehicle] = useState(undefined);
 
 
-  const getCurrentDate=()=>{
- 
-    var date = new Date().getDate()-1;
-    var month = new Date().getMonth()+1;
-    var year = new Date().getFullYear();
+  console.log(useAuth().location)
+  console.log(useAuth().auth)
+  // console.log(mileage)
+  // console.log(name)
+  // console.log(location)
 
-    //Alert.alert(date + '-' + month + '-' + year);
-    // You can turn it in to your desired format
-    return date + '-' + month + '-' + year;//format: d-m-y;
-  }
-  const hora = new Date().toLocaleString();
-  console.log(typeof(hora));
-  console.log(hora);
   async function createQr(name){
 
     if(name === " "){
@@ -41,17 +36,17 @@ export default function ScaanQr(props) {
       )
     }
     try{
-      const db = getDbConnection();
+      // const db = getDbConnection();
       // console.log(db)
       // console.log(name)
-      insertQr(db,name);
+      // insertQr(db,name);
       Alert.alert(
         'Succes',
         'Automovil ingresado Correctamente',[
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
-            style: "suscces"
+            style: "cancel"
           }
         ]
       )
@@ -77,11 +72,13 @@ export default function ScaanQr(props) {
 
     getBarCodeScannerPermissions();
   }, []);
-  const cargeVehicles = (value) => {
+  const cargeVehicles = (data) => {
     try {
-      // const response = await postVehicles(value);
-      createQr(value);
-      console.log(value)
+      let hora = new Date().toLocaleString();
+      console.log(idVehicle,location,name,mileage,hora)
+      // const response = await postVehicles(value,location,name,mileage,hora);
+      createQr(data);
+      // console.log(value)
       // console.log(response);
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}}
   
@@ -89,7 +86,10 @@ export default function ScaanQr(props) {
     setScanned(true);
     // console.log(type);
     // console.log(typeof(data));
+    setIdVehicle(data);
     cargeVehicles(data);
+
+
   };
 
   if (hasPermission === null) {

@@ -1,13 +1,17 @@
 import { View, Text, TouchableOpacity,StyleSheet} from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import useAuth from '../../hooks/useAuth';
 
 export default function Button(props) {
     // console.log(props)
-    const {navigation} = props;
+    const {login,locationUser}= useAuth();
+    const {navigation,name,location} = props;
     const gotoPage = () =>{
+        login(name)
+        locationUser(location)
+        // console.log(useAuth())
         navigation.navigate("NavigationQr");
-        console.log("hello");
     }
 return (
     <TouchableOpacity onPress={gotoPage} style= {styles.button}>

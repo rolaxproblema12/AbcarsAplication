@@ -5,16 +5,20 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { SelectList } from 'react-native-dropdown-select-list';
 
+
 export default function Body(props) {
     const {navigation} = props;
     const [location,setLocation] = useState('Serdan')
     const [name,setName] = useState('roland')
+  
+
 
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
-        validateOnChange: false,
+        validateOnChange: true,
             onsubmit :() => {
+
                 console.log("Formulario enviado..")
             }
         
@@ -55,7 +59,7 @@ return (
                 placeholder={'Selecciona una Ubicacion'}
                 // defaultOption={{key:'Serdan',value:'Serdan'}}
             />
-            <Buttonn navigation={navigation}  location = {location} name={name}></Buttonn>
+            <Buttonn navigation={navigation} name={name} location ={location}/>
 
             <Text style={styles.text}>{formik.errors.username}</Text>
             <Text style={styles.text}>{formik.errors.password}</Text>
@@ -65,7 +69,7 @@ return (
 }
 function validationSchema(){
     return{
-        username: Yup.string().required("El usuario es obligatorio").email("El correo es obligatorio"),
+        username: Yup.string().required("El usuario es obligatorio"),
         password: Yup.string().required("La contraseña es obligatoria")
     }
 }

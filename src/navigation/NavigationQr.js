@@ -13,7 +13,7 @@ export default function NavigationQr() {
       <Stack.Screen name="Menu" component={Menu} options={{title:"", headerBackVisible: false, headerTransparent: true}}/>
       <Stack.Screen name="ScaanQr" component={ScaanQr} options={{title:"", headerBackVisible: false, headerTransparent: true}}/>
       <Stack.Screen name="ScaanQrSalidaVehicle" component={ScaanQrSalidaVehicle} options={{title:"", headerBackVisible: false, headerTransparent: true}}/>
-      <Stack.Screen name="AutosAlmacen" component={AutosAlmacen} options={{title:""}}/>
+      <Stack.Screen name="AutosAlmacen" component={AutosAlmacen} options={{title:"", headerBackVisible: false, headerTransparent: true}}/>
     </Stack.Navigator>
   )
 }

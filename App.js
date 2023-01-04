@@ -7,14 +7,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import Navigation from './src/navigation/Navigation';
 import { useEffect } from 'react';
 import { db, initDataBase} from './src/utils/db';
+import {AuthProvider}from './src/context/AuthContext'
 
 export default function App() {
   initDataBase();
   return (
     <NavigationContainer>
+      <AuthProvider>
+        <Navigation/>
+      </AuthProvider>
       {/* <Login></Login> */}
       {/* <Menu></Menu> */}
-      <Navigation></Navigation>
+
     </NavigationContainer>
   );
 }
