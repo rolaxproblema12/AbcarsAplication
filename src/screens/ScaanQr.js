@@ -9,6 +9,24 @@ export default function ScaanQr(props) {
   const {navigation}=props
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [mileage,setMileage] = useState(10000);
+  const [name,setName] = useState('Rolando');
+  const [location,setLocation] = useState('serdan');
+
+
+  const getCurrentDate=()=>{
+ 
+    var date = new Date().getDate()-1;
+    var month = new Date().getMonth()+1;
+    var year = new Date().getFullYear();
+
+    //Alert.alert(date + '-' + month + '-' + year);
+    // You can turn it in to your desired format
+    return date + '-' + month + '-' + year;//format: d-m-y;
+  }
+  const hora = new Date().toLocaleString();
+  console.log(typeof(hora));
+  console.log(hora);
   async function createQr(name){
 
     if(name === " "){
@@ -94,7 +112,7 @@ export default function ScaanQr(props) {
           keyboardType="number-pad"
           autoCapitalize='none'
           // value={formik.values.username}
-          // onChangeText = {(text) => formik.setFieldValue('username',text)}    
+          onChangeText = {(text) =>setMileage(text) }    
       />
     </View>
     // {/* <View>

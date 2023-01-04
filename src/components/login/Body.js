@@ -8,6 +8,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 export default function Body(props) {
     const {navigation} = props;
     const [location,setLocation] = useState('Serdan')
+    const [name,setName] = useState('roland')
 
     const formik = useFormik({
         initialValues: initialValues(),
@@ -36,7 +37,7 @@ return (
                 keyboardType="Email"
                 autoCapitalize='none'
                 value={formik.values.username}
-                onChangeText = {(text) => formik.setFieldValue('username',text)}    
+                onChangeText = {(text) =>{formik.setFieldValue('username',text), setName(text)}}    
             />
             <TextInput 
                 style={styles.input}
@@ -54,7 +55,7 @@ return (
                 placeholder={'Selecciona una Ubicacion'}
                 // defaultOption={{key:'Serdan',value:'Serdan'}}
             />
-            <Buttonn navigation={navigation}  location = {location}></Buttonn>
+            <Buttonn navigation={navigation}  location = {location} name={name}></Buttonn>
 
             <Text style={styles.text}>{formik.errors.username}</Text>
             <Text style={styles.text}>{formik.errors.password}</Text>
