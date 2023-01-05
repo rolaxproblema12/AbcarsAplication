@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.abcars.location_vehicles",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -28,6 +29,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a73c206f-ba26-4622-a5e1-f2cbf2c2cf77"
+      }
     }
   }
 }

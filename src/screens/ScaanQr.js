@@ -11,13 +11,8 @@ export default function ScaanQr(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [mileage,setMileage] = useState(10000);
-  const [name,setName] = useState('Rolando');
-  const [location,setLocation] = useState('serdan');
-  const [idVehicle,setIdVehicle] = useState(undefined);
-
-
-  console.log(useAuth().location)
-  console.log(useAuth().auth)
+  const location = useAuth().location;
+  const userName = useAuth().auth;
   // console.log(mileage)
   // console.log(name)
   // console.log(location)
@@ -36,7 +31,8 @@ export default function ScaanQr(props) {
       )
     }
     try{
-      // const db = getDbConnection();
+      // console.log(name);
+
       // console.log(db)
       // console.log(name)
       // insertQr(db,name);
@@ -72,21 +68,20 @@ export default function ScaanQr(props) {
 
     getBarCodeScannerPermissions();
   }, []);
-  const cargeVehicles = (data) => {
+  const cargeVehicles =async (data) => {
     try {
       let hora = new Date().toLocaleString();
-      console.log(idVehicle,location,name,mileage,hora)
-      // const response = await postVehicles(value,location,name,mileage,hora);
+      // console.log(userName,location,data,mileage,hora)
+      const db = getDbConnection();
+      const response = await postVehicles(userName,location,data,mileage,hora);
       createQr(data);
-      // console.log(value)
-      // console.log(response);
+      console.log(response);
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}}
   
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     // console.log(type);
     // console.log(typeof(data));
-    setIdVehicle(data);
     cargeVehicles(data);
 
 
