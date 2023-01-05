@@ -4,6 +4,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import {postVehicles} from '../api/vehicles';
 import { getDbConnection, getTasks, insertQr } from '../utils/db';
 import useAuth from '../hooks/useAuth';
+import NetInfo from '@react-native-community/netinfo';
 // import Navigation from './src/navigation/Navigation';
 
 export default function ScaanQr(props) {
@@ -16,6 +17,10 @@ export default function ScaanQr(props) {
   // console.log(mileage)
   // console.log(name)
   // console.log(location)
+  NetInfo.fetch().then(state => {
+    console.log('Connection type', state.type);
+    console.log('Is connected?', state.isConnected);
+  });
 
   async function createQr(name){
 
@@ -71,9 +76,9 @@ export default function ScaanQr(props) {
   const cargeVehicles =async (data) => {
     try {
       let hora = new Date().toLocaleString();
-      // console.log(userName,location,data,mileage,hora)
-      const db = getDbConnection();
-      const response = await postVehicles(userName,location,data,mileage,hora);
+      console.log(userName,location,data,mileage,hora)
+      // const db = getDbConnection();
+      const response = await postVehicles(location,userName,mileage,hora,data);
       createQr(data);
       console.log(response);
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}}

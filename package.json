@@ -30,7 +30,9 @@
     "react-native-vector-icons": "^9.2.0",
     "yet": "^0.1.0",
     "yup": "^0.32.11",
-    "expo-system-ui": "~2.0.1"
+    "expo-system-ui": "~2.0.1",
+    "expo-network": "~5.0.0",
+    "@react-native-community/netinfo": "9.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

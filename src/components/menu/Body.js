@@ -7,7 +7,6 @@ export default function Body(props) {
     const {navigation} = props;
 return (
     <SafeAreaView style= {styles.container}>
-        <Image style={styles.img} source={require('../../assets/abcars.png')}></Image>
         <Button text={'Ingresar Automovil'} navigation={navigation}/>
         <ButtonSalida text={'Salida de Automovil'} navigation={navigation}/>
     </SafeAreaView>

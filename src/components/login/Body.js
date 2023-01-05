@@ -26,7 +26,11 @@ export default function Body(props) {
     const data = [
         {key:'Zacatelco', value: 'Zacatelco'},
         {key:'Angelopolis', value:'Angelopolis'},
-        {key:'Serdan',value:'Serdan'}
+        {key:'Serdan',value:'Serdan'},
+        {key:'Cholula',value:'Cholula'},
+        {key:'15 de mayo',value:'15 de mayo'},
+        {key:'Esteban de antuñano',value:'Esteban de antuñano'}
+
     ]
  
 return (
