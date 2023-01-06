@@ -17,9 +17,14 @@ export default function ScaanQr(props) {
   // console.log(mileage)
   // console.log(name)
   // console.log(location)
-  NetInfo.fetch().then(state => {
-    console.log('Connection type', state.type);
-    console.log('Is connected?', state.isConnected);
+  const wifi=NetInfo.fetch().then(state => {
+    // console.log('Connection type', state.type);
+    // console.log('Is connected?', state.isConnected);
+    if(state.isConnected===true)
+    {
+      return true
+    }
+    else return false
   });
 
   async function createQr(name){
@@ -76,8 +81,9 @@ export default function ScaanQr(props) {
   const cargeVehicles =async (data) => {
     try {
       let hora = new Date().toLocaleString();
-      console.log(userName,location,data,mileage,hora)
-      // const db = getDbConnection();
+      // console.log(userName,location,data,mileage,hora)
+      const db = getDbConnection();
+      insertQr(location,userName,mileage,hora,data)
       const response = await postVehicles(location,userName,mileage,hora,data);
       createQr(data);
       console.log(response);

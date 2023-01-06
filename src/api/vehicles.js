@@ -19,8 +19,7 @@ export async function postVehicles(name,name_guard,mileage,reception,vehicle_id)
     console.log('Vehicle idd ', vehicle_id)
     try{
         const url = API_HOST;
-        const response = await fetch(url,{method:'POST',headers:{'Content-Type': 'application/json'},body:
-        ({name: name},{name_guard:name_guard},{mileage:parseInt(mileage)},{reception:reception},{vehicle_id:parseInt(vehicle_id)})
+        const response = await fetch(url,{method:'POST',headers:{Accept:'application/json','Content-Type': 'application/json'},body:JSON.stringify({name: name,name_guard:name_guard,mileage:mileage,reception:reception,vehicle_id:vehicle_id})
         });
         // console.log(response)
         const result = await response.json();

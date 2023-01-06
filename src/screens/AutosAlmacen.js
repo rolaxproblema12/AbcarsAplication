@@ -17,8 +17,8 @@ export default function AutosAlmacen() {
         console.log(vehicles.map(name => name.name))
 
         /*console.log( JSON.parse(datos)._array[0].name)*/})
-      // const response = await getVehicles()
-      // console.log(response)
+      const response = await getVehicles()
+      console.log(response)
     }catch(error){
       // console.error(error)
     }
