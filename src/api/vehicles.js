@@ -1,4 +1,4 @@
-import { API_HOST } from "../utils/constants";
+import { API_HOST, API_Transito } from "../utils/constants";
 export async function getVehicles(){
     try{
         const url = API_HOST;
@@ -9,6 +9,17 @@ export async function getVehicles(){
     }catch(e){
         console.log(e);
     }
+}
+export async function updateVehicles(id){
+    try{
+        const url = API_Transito;
+        const response = await fetch(`${url}+${id}`);
+        const result = await response.json();
+        return result;
+    }catch(e){
+        console.log(e);
+    }
+
 }
 export async function postVehicles(name,name_guard,mileage,reception,vehicle_id){
     console.log('Nombre: ',name )

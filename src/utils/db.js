@@ -3,22 +3,6 @@ import { useEffect, useState } from 'react';
 
 
 
-// export function db(){
-
-
-//     // useEffect(()=>{
-//     // try{
-//     //     db.transaction(tx =>{
-//     //         tx.executeSql('CREATE TABLE IF NOT EXISTS location_vehicles(id INTEGER PRIMARY KEY AUTOINCREMENT , name TEXT)')
-//     //     });
-//     //     console.log('creada')
-//     // }catch(e){
-//     //     console.log('error',e);
-//     // }
-//     // }, [])
-
-// }
-
 export function getDbConnection(){
     try{
         const db = SQLite.openDatabase('qrData.db');
@@ -96,5 +80,14 @@ export function getTasks(db){
     //         qrs.push(ResultSet.rows.item(index));
     //     }
     // });
+
+}
+
+export function updateVehiclesdb(db,id){
+    db.transaction(tx =>{
+        tx.executeSql('UPDATE location_vehicles SET name_location=? WHERE vehicle_id = ?',[id]);
+    });
+    console.log('registro actualizado')
+
 
 }

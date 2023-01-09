@@ -6,10 +6,6 @@ import { getVehicles } from '../../api/vehicles'
 export default function Body(props) {
     const {navigation} = props;
     const [numVehicles, setNumVehicles] = useState("");
-    useEffect(() =>{
-        (async() => { await loadVehicles()
-        })();
-      },[])
     const loadVehicles = async () =>{
         try{
           const response = await getVehicles()
@@ -19,12 +15,18 @@ export default function Body(props) {
           // console.error(error)
         }
       }
+      loadVehicles()
     // let numVehicles = data.data.length  
 return (
-    <SafeAreaView style= {styles.container}>
-        <Button text={'Ingresar Automovil'} navigation={navigation}/>
+    <SafeAreaView>
+      <View style= {styles.container}>
+      <Button text={'Ingresar Automovil'} navigation={navigation}/>
         <ButtonSalida text={'Salida de Automovil'} navigation={navigation}/>
+      </View>
+      <View style={styles.containerContador}>
         <Text style={styles.numVehicles}>{numVehicles}</Text>
+      </View>
+
     </SafeAreaView>
 )
 }
@@ -43,9 +45,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         opacity:0.2
     },
+    containerContador:{
+      padding:-5,
+    },
     numVehicles:{
+      position: 'relative',
         fontSize: 50,
-        position: 'absolute',
+        textAlign: 'center',
         
     }
+
 })

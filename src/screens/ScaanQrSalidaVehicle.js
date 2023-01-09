@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Alert,TextInput,SafeAreaView } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import {postVehicles} from '../api/vehicles';
-import { getDbConnection, getTasks, insertQr } from '../utils/db';
+import {updateVehicles} from '../api/vehicles';
+import { getDbConnection,updateVehiclesdb } from '../utils/db';
+import NetInfo from '@react-native-community/netinfo';
 
 export default function ScaanQrSalidaVehicle(props) {
   const {navigation} = props;
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  let wifi = false;
+  NetInfo.fetch().then(state => {
+    wifi = state.isConnected;
+  });
   async function createQr(name){
 
     if(name === " "){
@@ -22,13 +27,10 @@ export default function ScaanQrSalidaVehicle(props) {
       )
     }
     try{
-      const db = getDbConnection();
-      // console.log(db)
-      // console.log(name)
-      insertQr(db,name);
+
       Alert.alert(
         'Succes',
-        'Automovil ingresado Correctamente',[
+        'Automovil actualizado en transito Correctamente',[
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
@@ -58,12 +60,21 @@ export default function ScaanQrSalidaVehicle(props) {
 
     getBarCodeScannerPermissions();
   }, []);
-  const cargeVehicles = (value) => {
+  const cargeVehicles = async(value) => {
     try {
-      // const response = await postVehicles(value);
+      if(wifi === true){
+        const response = await updateVehicles(value);
+        console.log(response)
+      }
+      else{
+      const db = getDbConnection();
+      updateVehiclesdb(db,value)
+
+      }
       createQr(value);
-      console.log(value)
+
       // console.log(response);
+
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}}
   
   const handleBarCodeScanned = ({ type, data }) => {

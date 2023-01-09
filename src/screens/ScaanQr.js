@@ -35,7 +35,7 @@ export default function ScaanQr(props) {
     try{
       Alert.alert(
         'Succes',
-        response,[
+        `'${response}'`,[
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
@@ -68,14 +68,15 @@ export default function ScaanQr(props) {
     try {
       let hora = new Date().toLocaleString();
       // console.log(userName,location,data,mileage,hora)
-      const db = getDbConnection();
+
         if(wifi===true)
         {
           let response = await postVehicles(location,userName,mileage,hora,data);
-          createQr(data, response);
+          createQr(data, JSON.stringify(response));
           console.log('con wifi',response);
         }
         else{
+          const db = getDbConnection();
           insertQr(db,location,userName,mileage,hora,data)
           createQr(data);
         }

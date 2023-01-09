@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rolaxxxproblema.AbcarsApp"
     },
     "android": {
       "package": "com.abcars.location_vehicles",
