@@ -17,38 +17,25 @@ export default function ScaanQr(props) {
   // console.log(mileage)
   // console.log(name)
   // console.log(location)
-  const wifi=NetInfo.fetch().then(state => {
-    // console.log('Connection type', state.type);
-    // console.log('Is connected?', state.isConnected);
-    if(state.isConnected===true)
-    {
-      return true
-    }
-    else return false
+  let wifi = false;
+  NetInfo.fetch().then(state => {
+    wifi = state.isConnected;
   });
-
-  async function createQr(name){
-
+  async function createQr(name, response){
     if(name === " "){
       Alert.alert(
         'Succes',
         'Error no hay un Id',[
           {
             text:'Ok',
-
           }
         ]
       )
     }
     try{
-      // console.log(name);
-
-      // console.log(db)
-      // console.log(name)
-      // insertQr(db,name);
       Alert.alert(
         'Succes',
-        'Automovil ingresado Correctamente',[
+        response,[
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
@@ -68,7 +55,6 @@ export default function ScaanQr(props) {
         ]
       )
     }
-
   }
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -83,19 +69,21 @@ export default function ScaanQr(props) {
       let hora = new Date().toLocaleString();
       // console.log(userName,location,data,mileage,hora)
       const db = getDbConnection();
-      insertQr(location,userName,mileage,hora,data)
-      const response = await postVehicles(location,userName,mileage,hora,data);
-      createQr(data);
-      console.log(response);
-    } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}}
-  
+        if(wifi===true)
+        {
+          let response = await postVehicles(location,userName,mileage,hora,data);
+          createQr(data, response);
+          console.log('con wifi',response);
+        }
+        else{
+          insertQr(db,location,userName,mileage,hora,data)
+          createQr(data);
+        }
+    } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}
+  }
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    // console.log(type);
-    // console.log(typeof(data));
     cargeVehicles(data);
-
-
   };
 
   if (hasPermission === null) {

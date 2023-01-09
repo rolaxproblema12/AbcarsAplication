@@ -35,7 +35,7 @@ export function createTables(db){
     useEffect(()=>{
     try{
         db.transaction(tx =>{
-            tx.executeSql('CREATE TABLE IF NOT EXISTS location_vehicles(id INTEGER PRIMARY KEY AUTOINCREMENT , name_location TEXT,name_guard TEXT, mileage number,reception TEXT, vehicle_id number)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS location_vehicles(id INTEGER PRIMARY KEY AUTOINCREMENT , name_location TEXT,name_guard TEXT, mileage INTEGER,reception TEXT, vehicle_id INTEGER)')
         });
         console.log('creada')
     }catch(e){
@@ -56,12 +56,13 @@ export function insertQr(db, name,name_guard,mileage,reception,vehicle_id){
     try{
         // const insertQuery = `INSERT INTO vehicle_location(name) values ('${name}')`;
         // return db.executeSql(insertQuery);}
-        console.log('Hola desde insett',name)
+        // console.log('Hola desde insett',name)
         // console.log(db)
         db.transaction(tx=>{
             tx.executeSql('INSERT INTO location_vehicles(name,name_guard,mileage,reception,vehicle_id) VALUES (?)',[name,name_guard,mileage,reception,vehicle_id]);
         });
-        console.log('registro creado')
+
+        return 'registro creado sin wifi'
     }catch(e){
         console.log(e);
     }
