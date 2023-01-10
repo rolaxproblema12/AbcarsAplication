@@ -69,17 +69,17 @@ export default function ScaanQr(props) {
       let hora = new Date().toLocaleString();
       // console.log(userName,location,data,mileage,hora)
 
-        if(wifi===true)
-        {
-          let response = await postVehicles(location,userName,mileage,hora,data);
-          createQr(data, JSON.stringify(response));
-          console.log('con wifi',response);
-        }
-        else{
+        // if(wifi===true)
+        // {
+        //   let response = await postVehicles(location,userName,mileage,hora,data);
+        //   createQr(data, JSON.stringify(response));
+        //   console.log('con wifi',response);
+        // }
+        // else{
           const db = getDbConnection();
-          insertQr(db,location,userName,mileage,hora,data)
-          createQr(data);
-        }
+          const dblocal= insertQr(db,location,userName,mileage,hora,data)
+          createQr(data,dblocal);
+        // }
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}
   }
   const handleBarCodeScanned = ({ type, data }) => {

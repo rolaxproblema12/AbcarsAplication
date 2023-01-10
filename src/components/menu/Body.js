@@ -23,9 +23,9 @@ return (
       <Button text={'Ingresar Automovil'} navigation={navigation}/>
         <ButtonSalida text={'Salida de Automovil'} navigation={navigation}/>
       </View>
-      <View style={styles.containerContador}>
+      {/* <View style={styles.containerContador}>
         <Text style={styles.numVehicles}>{numVehicles}</Text>
-      </View>
+      </View> */}
 
     </SafeAreaView>
 )
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         
     },
+
     img: {
         width:'100%', height:'100%',
         top: 120,
@@ -45,14 +46,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         opacity:0.2
     },
-    containerContador:{
-      padding:-5,
-    },
-    numVehicles:{
-      position: 'relative',
-        fontSize: 50,
-        textAlign: 'center',
+    // numVehicles:{
+    //   position: 'relative',
+    //     fontSize: 50,
+    //     textAlign: 'center',
         
-    }
+    // }
 
 })
