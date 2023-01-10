@@ -14,9 +14,6 @@ export default function ScaanQr(props) {
   const [mileage,setMileage] = useState(10000);
   const location = useAuth().location;
   const userName = useAuth().auth;
-  // console.log(mileage)
-  // console.log(name)
-  // console.log(location)
   let wifi = false;
   NetInfo.fetch().then(state => {
     wifi = state.isConnected;
@@ -67,19 +64,19 @@ export default function ScaanQr(props) {
   const cargeVehicles =async (data) => {
     try {
       let hora = new Date().toLocaleString();
-      // console.log(userName,location,data,mileage,hora)
+      console.log(userName,location,data,mileage,hora)
 
-        // if(wifi===true)
-        // {
-        //   let response = await postVehicles(location,userName,mileage,hora,data);
-        //   createQr(data, JSON.stringify(response));
-        //   console.log('con wifi',response);
-        // }
-        // else{
+        if(wifi===true)
+        {
+          let response = await postVehicles(location,userName,mileage,hora,data);
+          createQr(data, JSON.stringify(response));
+          console.log('con wifi',response);
+        }
+        else{
           const db = getDbConnection();
           const dblocal= insertQr(db,location,userName,mileage,hora,data)
           createQr(data,dblocal);
-        // }
+        }
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}
   }
   const handleBarCodeScanned = ({ type, data }) => {
