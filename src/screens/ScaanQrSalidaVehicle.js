@@ -13,7 +13,7 @@ export default function ScaanQrSalidaVehicle(props) {
   NetInfo.fetch().then(state => {
     wifi = state.isConnected;
   });
-  async function createQr(name){
+  async function createQr(name,data){
 
     if(name === " "){
       Alert.alert(
@@ -30,7 +30,7 @@ export default function ScaanQrSalidaVehicle(props) {
 
       Alert.alert(
         'Succes',
-        'Automovil actualizado en transito Correctamente',[
+        `'${data}'`,[
           {
             text:'Ok',
             onPress: () => navigation.navigate('Menu'),
@@ -65,13 +65,15 @@ export default function ScaanQrSalidaVehicle(props) {
       if(wifi === true){
         const response = await updateVehicles(value);
         console.log(response)
+        createQr(value,response);
       }
       else{
       const db = getDbConnection();
-      updateVehiclesdb(db,value)
+      const responde=updateVehiclesdb(db,value)
+      createQr(responde);
 
       }
-      createQr(value);
+
 
       // console.log(response);
 

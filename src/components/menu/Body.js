@@ -2,15 +2,18 @@ import { View, Text,StyleSheet, SafeAreaView,Image } from 'react-native'
 import React,{useState,useEffect} from 'react'
 import Button from './buttons/Button'
 import ButtonSalida from './buttons/ButtonSalida'
-import { getVehicles } from '../../api/vehicles'
+import { getlocationVehicles} from '../../api/vehicles'
+import useAuth from '../../hooks/useAuth'
+
 export default function Body(props) {
     const {navigation} = props;
+    const location = useAuth().location;
     const [numVehicles, setNumVehicles] = useState("");
     const loadVehicles = async () =>{
         try{
-          const response = await getVehicles()
-          console.log(response.data.length)
+          const response = await getlocationVehicles(location);
           setNumVehicles (response.data.length);
+          console.log(response.data.length)
         }catch(error){
           // console.error(error)
         }
@@ -23,9 +26,9 @@ return (
       <Button text={'Ingresar Automovil'} navigation={navigation}/>
         <ButtonSalida text={'Salida de Automovil'} navigation={navigation}/>
       </View>
-      <View style={styles.containerContador}>
+      {/* <View style={styles.containerContador}>
         <Text style={styles.numVehicles}>{numVehicles}</Text>
-      </View>
+      </View> */}
 
     </SafeAreaView>
 )
@@ -46,11 +49,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         opacity:0.2
     },
-    numVehicles:{
-      position: 'relative',
-        fontSize: 50,
-        textAlign: 'center',
+    // numVehicles:{
+    //   position: 'relative',
+    //     fontSize: 50,
+    //     textAlign: 'center',
         
-    }
+    // }
 
 })
