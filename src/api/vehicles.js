@@ -15,7 +15,7 @@ export async function getlocationVehicles (location_vehicle){
         const url = API_Location_Vehicles;
         const response = await fetch(url+location_vehicle);
         const result = await response.json();
-        return JSON.stringify(result);
+        return (result);
     }catch(e){
         console.log(e);
     }
@@ -25,7 +25,7 @@ export async function updateVehicles(id){
         const url = API_Transito;
         const response = await fetch(url+id);
         const result = await response.json();
-        return result;
+        return JSON.stringify(result);
     }catch(e){
         console.log(e);
     }

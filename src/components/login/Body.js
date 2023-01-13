@@ -1,4 +1,4 @@
-import { View, Text,SafeAreaView,TextInput,StyleSheet,Button, Image} from 'react-native'
+import { View, Text,SafeAreaView,TextInput,StyleSheet,Button, Image,ImageBackground} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Buttonn from './Buttonn'
 import { useFormik } from 'formik';
@@ -13,10 +13,10 @@ export default function Body(props) {
     const [location,setLocation] = useState('Serdan')
     const [name,setName] = useState('roland')
     const [information,setInformation] = useState("")
-    useEffect(() =>{
-        (async() => { await SummitInformation()
-        })();
-    },[])
+    // useEffect(() =>{
+    //     (async() => { await SummitInformation()
+    //     })();
+    // },[])
     
     const loadVehicles = async () =>
     {
@@ -61,9 +61,7 @@ export default function Body(props) {
  
 return (
     <SafeAreaView style= {styles.container}>
-        <View>
-            <Image style={styles.img} source={require('../../assets/coche.png')}></Image>
-        </View>
+
         <View style={styles.form}>
             <TextInput 
                 style={styles.input} 
@@ -84,19 +82,21 @@ return (
                 onChangeText = {(text) => formik.setFieldValue('password',text)}   
             />
             <SelectList
+                style={styles.selectList}
                 setSelected={setLocation}
                 data={data}
                 placeholder={'Selecciona una Ubicacion'}
-                // defaultOption={{key:'Serdan',value:'Serdan'}}
+                defaultOption={{key:'Serdan',value:'Serdan'}}
             />
             <Buttonn navigation={navigation} name={name} location ={location}/>
 
             <Text style={styles.text}>{formik.errors.username}</Text>
             <Text style={styles.text}>{formik.errors.password}</Text>
-            {/* <Button onPress={SummitInformation} title="Sincronizar"></Button> */}
+            <Button onPress={SummitInformation} title="Sincronizar"></Button>
 
         </View>
         <View>
+            <Image style={styles.img} source={require('../../assets/footerLogin.png')}></Image>
         </View>
     </SafeAreaView>
 )
@@ -120,27 +120,42 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },  
     form: {
+        marginTop:10,
         position: 'absolute',
         alignItems: 'center',
+        
     },
     img:{
-        position: 'relative',
-        opacity: 0.3,
+
+        // position: 'relative',
+        // height:'100%',
+        alignItems: 'flex-end',
+        opacity: 1,
     },
     container: {
         alignItems: 'center',
-        marginTop: 40,
-        zIndex:2,
+        // marginTop: '30%',
+        backgroundColor:'#FFFFFF',
+        zIndex:1,
+        paddingTop: '50%',
+        paddingBottom:'50%',
+        borderTopStartRadius: 40,
+        borderTopEndRadius: 40,
+        // zIndex:2,
         
     },
     input: {
-        margin: 10 ,
+        margin: 10,
         padding: 10,
-        borderColor: "black",
-        backgroundColor: "#F5F5F5",
-        borderRadius: 10,
-        borderWidth: 2,
+        borderColor: "#E8E6E6",
+        backgroundColor: "#E8E6E6",
+        borderRadius: 25,
         width: 300,
         height: 60,
+    },
+    selectList:{
+        backgroundColor:"#1057DB",
+        color:"#1057DB"
+        
     }
 })

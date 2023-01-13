@@ -36,19 +36,20 @@ export function initDataBase(){
     // db.close();
 
 }
-export function insertQr(db, name,name_guard,mileage,reception,vehicle_id){
+export async function insertQr(db, name,name_guard,mileage,reception,vehicle_id){
     try{
-        const [resultado,setResult] = useState("")
+        const [resultado,setResult] = useState("Exito")
         // const insertQuery = `INSERT INTO vehicle_location(name) values ('${name}')`;
         // return db.executeSql(insertQuery);}
         // console.log('Hola desde insett',name)
         // console.log(db)
-        db.transaction(tx => {
+        await db.transaction(tx => {
             tx.executeSql('INSERT INTO location_vehicles (name_location,name_guard,mileage,reception,vehicle_id) VALUES (?,?,?,?,?)',[name,name_guard,mileage,reception,vehicle_id],
             (txObj, resultSet) => setResult(JSON.stringify(resultSet)),
-            (txObj, error) => console.log('Error', error))
+            (txObj, error) => setResult('Error', error))
         })
-        return resultado;
+        const resul = await resultado
+        return resul;
         // db.transaction(tx=>{
         //     tx.executeSql(,
         //     (txobj,resultset)=>{console.log('resultado',resultset)});

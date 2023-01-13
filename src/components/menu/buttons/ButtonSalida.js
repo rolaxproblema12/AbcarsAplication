@@ -22,8 +22,8 @@ const oppenCamera = () => {
 const styles = StyleSheet.create({
     buttonBg: {
         // backgroundColor: 'black',
-        marginTop: '40%',
-        marginBottom :  '40%',
+        marginTop: '20%',
+        marginBottom :  '20%',
         marginEnd:10,
         marginLeft: 10,
         height: 150,
