@@ -13,25 +13,26 @@ return (
       <View style= {styles.container}>
       <Button text={'Ingresar Automovil'} navigation={navigation}/>
       <ButtonSalida text={'Salida de Automovil'} navigation={navigation}/>
+      <Image source={require('../../assets/FondoMenu.png')} style={styles.img}></Image>
       </View>
     </SafeAreaView>
 )
 }
 const styles = StyleSheet.create({
     container:{
-        flexDirection: 'row',
+        // flexDirection: '',
         alignItems: 'center',
         justifyContent: 'center',
         
     },
 
     img: {
-        width:'100%', height:'100%',
-        top: 120,
-        left:  2,
-        right: 2,
+        // width:'100%', height:'100%',
+        // top: 120,
+        // left:  2,
+        // right: 2,
         position: 'absolute',
-        opacity:0.2
+        opacity:1
     },
 
 

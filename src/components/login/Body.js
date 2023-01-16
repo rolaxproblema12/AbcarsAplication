@@ -86,7 +86,7 @@ return (
                 setSelected={setLocation}
                 data={data}
                 placeholder={'Selecciona una Ubicacion'}
-                defaultOption={{key:'Serdan',value:'Serdan'}}
+                // defaultOption={{key:'Serdan',value:'Serdan'}}
             />
             <Buttonn navigation={navigation} name={name} location ={location}/>
 
@@ -95,8 +95,8 @@ return (
             <Button onPress={SummitInformation} title="Sincronizar"></Button>
 
         </View>
-        <View>
-            <Image style={styles.img} source={require('../../assets/footerLogin.png')}></Image>
+        <View style={styles.img} >
+            <Image source={require('../../assets/footerLogin.png')}></Image>
         </View>
     </SafeAreaView>
 )
@@ -120,24 +120,20 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },  
     form: {
-        marginTop:10,
         position: 'absolute',
         alignItems: 'center',
+        zIndex:2
         
     },
     img:{
-
-        // position: 'relative',
-        // height:'100%',
-        alignItems: 'flex-end',
-        opacity: 1,
+        position: 'relative',
+        zIndex: 1
     },
     container: {
         alignItems: 'center',
-        // marginTop: '30%',
+        marginTop: '-25%',
         backgroundColor:'#FFFFFF',
-        zIndex:1,
-        paddingTop: '50%',
+        paddingTop: '70%',
         paddingBottom:'50%',
         borderTopStartRadius: 40,
         borderTopEndRadius: 40,
@@ -154,8 +150,6 @@ const styles = StyleSheet.create({
         height: 60,
     },
     selectList:{
-        backgroundColor:"#1057DB",
-        color:"#1057DB"
         
     }
 })

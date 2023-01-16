@@ -9,6 +9,10 @@ export default function Header() {
         <Text  style= {styles.headerText}>¡BIENVENIDO!</Text>
         <Text style= {styles.headerTextP}>INGRESA USUARIO Y CONTRASEÑA</Text>
       </View>
+      <View>
+        <Image source={require("../../assets/footerLogin.png")} style={styles.imageAb}></Image>
+      </View>
+      
     </View>
   )
 }
@@ -38,5 +42,8 @@ const styles = StyleSheet.create({
         color: '#1057DB',
         fontWeight: 'bold',
         fontSize: 20,
+    },
+    imageAb:{
+      marginTop:'-40%'
     }
 })
