@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Alert,TextInput,SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert,TextInput,SafeAreaView,ScrollView } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import {postVehicles} from '../api/vehicles';
 import { getDbConnection, getTasks, insertQr } from '../utils/db';
@@ -12,6 +12,7 @@ export default function ScaanQr(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [mileage,setMileage] = useState(10000);
+  const [chofer, setChofer] = useState('Abraham');
   const location = useAuth().location;
   const userName = useAuth().auth;
   let wifi = "";
@@ -68,13 +69,13 @@ export default function ScaanQr(props) {
 
         if(wifi!=="")
         {
-          let response = await postVehicles(location,userName,mileage,hora,data);
+          let response = await postVehicles(location,userName,mileage,hora,chofer,data);
           createQr(data, JSON.stringify(response));
           console.log('con wifi',response);
         }
         else{
           const db = getDbConnection();
-          const dblocal= await insertQr(db,location,userName,mileage,hora,data)
+          const dblocal= await insertQr(db,location,userName,mileage,hora,chofer,data)
           createQr(data,dblocal);
         }
     } catch (e){console.log('error al cargar vehiculo funcion cargeVehicles',e);}
@@ -93,19 +94,32 @@ export default function ScaanQr(props) {
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
-      {scanned && <Button title={'Tomar Nuevamente Scanner'} onPress={() => setScanned(false)} />}
-      <TextInput 
+      {/* <View style={styles.containerQr}> */}
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={StyleSheet.absoluteFillObject}
+        />
+        {scanned && <Button title={'Tomar Nuevamente Scanner'} onPress={() => setScanned(false)} />}
+      {/* </View> */}
+      <View style={styles.containerInput}>
+        <TextInput 
+            style={styles.input} 
+            placeholder="Ingrese Kilometraje"
+            keyboardType="number-pad"
+            autoCapitalize='none'
+            // value={formik.values.username}
+            onChangeText = {(text) =>setMileage(text) }    
+        />
+        <TextInput 
           style={styles.input} 
-          placeholder="Ingrese Kilometraje"
-          keyboardType="number-pad"
+          placeholder="Ingrese Nombre Chofer"
+          keyboardType="Text"
           autoCapitalize='none'
-          // value={formik.values.username}
-          onChangeText = {(text) =>setMileage(text) }    
-      />
+            // value={formik.values.username}
+          onChangeText = {(text) =>setChofer(text) }    
+        />
+      </View>
+
     </View>
     // {/* <View>
 
@@ -119,13 +133,19 @@ const styles = StyleSheet.create({
   flexDirection: 'column',
   justifyContent: 'center',
   },
+  containerQr:{
+    position: 'absolute'
+  },  
+  containerInput:{
+    marginTop: 600
+  },
   input:{
     // textAlign: 'center',
     // justifyContent: 'center',
     // alignItems: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop:600,
+    marginTop:10,
     color:'black',
     padding: 10,
     borderColor: "black",

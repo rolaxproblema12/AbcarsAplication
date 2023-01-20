@@ -31,11 +31,11 @@ export async function updateVehicles(id){
     }
 
 }
-export async function postVehicles(name,name_guard,mileage,reception,vehicle_id){
+export async function postVehicles(name,name_guard,mileage,reception,chofer,vehicle_id){
 
     try{
         const url = API_HOST;
-        const response = await fetch(url,{method:'POST',headers:{Accept:'application/json','Content-Type': 'application/json'},body:JSON.stringify({name: name,name_guard:name_guard,mileage:mileage,reception:reception,vehicle_id:vehicle_id})
+        const response = await fetch(url,{method:'POST',headers:{Accept:'application/json','Content-Type': 'application/json'},body:JSON.stringify({name: name,name_guard:name_guard,mileage:mileage,reception:reception,chofer:chofer,vehicle_id:vehicle_id})
         });
         // console.log(response)
         const result = await response.json();
