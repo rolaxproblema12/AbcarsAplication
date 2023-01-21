@@ -11,8 +11,14 @@ const oppenCamera = () => {
     return (
     <TouchableWithoutFeedback  onPress={oppenCamera}>
         <View style ={styles.buttonBg}>
-            <Image source={require('../../../assets/carro-deportivo1.png')} style={styles.img}></Image>
-            <Text style={styles.textButton}>{text}</Text>
+            <View style={styles.contedo}>            
+                <Image source={require('../../../assets/IconoSalida.png')} style={styles.img}></Image>
+                <Text style={styles.textButton}>{text}</Text>
+            </View>
+            <View>
+                <Image source={require('../../../assets/capturarQR.png')}></Image>
+            </View>
+
         </View>
 
 
@@ -21,29 +27,45 @@ const oppenCamera = () => {
 }
 const styles = StyleSheet.create({
     buttonBg: {
-        // backgroundColor: 'black',
-        marginTop: '40%',
-        marginBottom :  '40%',
+        zIndex:2,
+        backgroundColor: 'white',
+        flexDirection:'row',
+        marginTop:10,
+        marginBottom: 10,
         marginEnd:10,
         marginLeft: 10,
-        height: 150,
-        width: 150,
+        height: 120,
+        width: 290,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 20,
-        borderColor: "black",
-        borderWidth: 4,
+        borderBottomStartRadius: 40,
+        borderTopEndRadius:40,
+        // borderColor: "black",
+        // borderWidth: 4,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+        
     },
     textButton:{
         color: 'black',
         fontWeight: 'bold',
-        fontSize:20,
+        fontSize:15,
         textAlign: 'center',
     },
     img: {
-        position: 'absolute',
-        height: 130,
-        width: 130,
-        opacity:0.2
+        // position: 'absolute',
+        height: 90,
+        width: 150,
+        opacity:1
+    },
+    contedo:{
+        marginRight: 10,
     }
 })

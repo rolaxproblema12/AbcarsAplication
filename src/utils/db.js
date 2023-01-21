@@ -19,7 +19,7 @@ export function createTables(db){
     useEffect(()=>{
     try{
         db.transaction(tx =>{
-            tx.executeSql('CREATE TABLE IF NOT EXISTS location_vehicles(id INTEGER PRIMARY KEY AUTOINCREMENT , name_location TEXT,name_guard TEXT, mileage TEXT,reception TEXT, vehicle_id TEXT)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS location_vehicles(id INTEGER PRIMARY KEY AUTOINCREMENT , name_location TEXT,name_guard TEXT, mileage TEXT,reception TEXT, chofer TEXT,vehicle_id TEXT)')
         });
         console.log('creada')
     }catch(e){
@@ -36,23 +36,26 @@ export function initDataBase(){
     // db.close();
 
 }
-export function insertQr(db, name,name_guard,mileage,reception,vehicle_id){
+export async function insertQr(db, name,name_guard,mileage,reception,chofer,vehicle_id){
     try{
+        const [resultado,setResult] = useState("Exito")
         // const insertQuery = `INSERT INTO vehicle_location(name) values ('${name}')`;
         // return db.executeSql(insertQuery);}
         // console.log('Hola desde insett',name)
         // console.log(db)
-        db.transaction(tx => {
-            tx.executeSql('INSERT INTO location_vehicles (name_location,name_guard,mileage,reception,vehicle_id) VALUES (?,?,?,?,?)',[name,name_guard,mileage,reception,vehicle_id],
-            (txObj, resultSet) => console.log(resultSet),
-            (txObj, error) => console.log('Error', error))
+        await db.transaction(tx => {
+            tx.executeSql('INSERT INTO location_vehicles (name_location,name_guard,mileage,reception,chofer,vehicle_id) VALUES (?,?,?,?,?,?)',[name,name_guard,mileage,reception,chofer,vehicle_id],
+            (txObj, resultSet) => setResult(JSON.stringify(resultSet)),
+            (txObj, error) => setResult('Error', error))
         })
+        const resul = await resultado
+        return resul;
         // db.transaction(tx=>{
         //     tx.executeSql(,
         //     (txobj,resultset)=>{console.log('resultado',resultset)});
         // });
 
-        return 'registro creado sin wifi'
+        // return 'registro creado sin wifi'
     }catch(e){
         console.log(e);
     }

@@ -1,16 +1,42 @@
-import { View, Text,SafeAreaView,TextInput,StyleSheet,Button, Image} from 'react-native'
-import React, { useState } from 'react'
+import { View, Text,SafeAreaView,TextInput,StyleSheet,Button, Image,ImageBackground} from 'react-native'
+import React, { useState, useEffect } from 'react'
 import Buttonn from './Buttonn'
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { SelectList } from 'react-native-dropdown-select-list';
+import { getTasks,getDbConnection } from '../../utils/db';
+import { postVehicles } from '../../api/vehicles';
 
 
 export default function Body(props) {
     const {navigation} = props;
     const [location,setLocation] = useState('Serdan')
     const [name,setName] = useState('roland')
-  
+    const [information,setInformation] = useState("")
+    // useEffect(() =>{
+    //     (async() => { await SummitInformation()
+    //     })();
+    // },[])
+    
+    const loadVehicles = async () =>
+    {
+      try{
+        const db = getDbConnection();
+        const data = await getTasks(db)
+        setInformation(data)
+      }catch(error){
+        console.error(error)
+      }
+    }
+    loadVehicles()
+    const SummitInformation=async()=>{
+        const datos = await information
+        for(let data of datos){
+            let sub = await postVehicles(data.name_location,data.name_guard,data.mileage,data.reception,data.vehicle_id)
+            console.log(sub)
+        }
+
+    }
 
 
     const formik = useFormik({
@@ -35,9 +61,7 @@ export default function Body(props) {
  
 return (
     <SafeAreaView style= {styles.container}>
-        <View>
-            <Image style={styles.img} source={require('../../assets/coche.png')}></Image>
-        </View>
+
         <View style={styles.form}>
             <TextInput 
                 style={styles.input} 
@@ -58,6 +82,7 @@ return (
                 onChangeText = {(text) => formik.setFieldValue('password',text)}   
             />
             <SelectList
+                style={styles.selectList}
                 setSelected={setLocation}
                 data={data}
                 placeholder={'Selecciona una Ubicacion'}
@@ -67,6 +92,11 @@ return (
 
             <Text style={styles.text}>{formik.errors.username}</Text>
             <Text style={styles.text}>{formik.errors.password}</Text>
+            <Button onPress={SummitInformation} title="Sincronizar"></Button>
+
+        </View>
+        <View style={styles.img} >
+            <Image source={require('../../assets/footerLogin.png')}></Image>
         </View>
     </SafeAreaView>
 )
@@ -92,25 +122,34 @@ const styles = StyleSheet.create({
     form: {
         position: 'absolute',
         alignItems: 'center',
+        zIndex:2
+        
     },
     img:{
         position: 'relative',
-        opacity: 0.3,
+        zIndex: 1
     },
     container: {
         alignItems: 'center',
-        marginTop: 40,
-        zIndex:2,
+        marginTop: '-25%',
+        backgroundColor:'#FFFFFF',
+        paddingTop: '70%',
+        paddingBottom:'50%',
+        borderTopStartRadius: 40,
+        borderTopEndRadius: 40,
+        // zIndex:2,
         
     },
     input: {
-        margin: 10 ,
+        margin: 10,
         padding: 10,
-        borderColor: "black",
-        backgroundColor: "#F5F5F5",
-        borderRadius: 10,
-        borderWidth: 2,
+        borderColor: "#E8E6E6",
+        backgroundColor: "#E8E6E6",
+        borderRadius: 25,
         width: 300,
         height: 60,
+    },
+    selectList:{
+        
     }
 })

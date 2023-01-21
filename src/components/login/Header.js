@@ -6,15 +6,19 @@ export default function Header() {
     <View style={styles.bgColor}>
       <View style={styles.container}>
         <Image source={require("../../assets/logo.png")} style={styles.image}></Image>
-        <Text style= {styles.headerText}>Bienvenido</Text>
-        <Text style= {styles.headerTextP}>Ingresa Usuario y Contraseña</Text>
+        <Text  style= {styles.headerText}>¡BIENVENIDO!</Text>
+        <Text style= {styles.headerTextP}>INGRESA USUARIO Y CONTRASEÑA</Text>
       </View>
+      <View>
+        <Image source={require("../../assets/footerLogin.png")} style={styles.imageAb}></Image>
+      </View>
+      
     </View>
   )
 }
 const styles = StyleSheet.create({
     bgColor:{
-        backgroundColor: '#eeb838',
+        backgroundColor: '#ffffff',
         paddingTop: 60,
         paddingBottom: 60,
     },  
@@ -26,17 +30,20 @@ const styles = StyleSheet.create({
     },
     image:{
         width :250,
-        height: 50,
+        height: 150,
     },
     headerText:{
         marginTop: 40,
-        color: 'black',
+        color: 'grey',
         fontWeight: 'bold',
         fontSize: 30,
     },
     headerTextP: {
-        color: '#a4a4a4',
+        color: '#1057DB',
         fontWeight: 'bold',
         fontSize: 20,
+    },
+    imageAb:{
+      marginTop:'-40%'
     }
 })

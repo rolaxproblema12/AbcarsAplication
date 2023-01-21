@@ -15,14 +15,14 @@ export default function Button(props) {
     }
 return (
     <TouchableOpacity onPress={gotoPage} style= {styles.button}>
-        <Text style={styles.text}>Ingresar</Text>
+        <Text style={styles.text}>INGRESAR</Text>
     </TouchableOpacity>
 )
 }
 const styles = StyleSheet.create({
     button: {
         zIndex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#1057DB',
         height:50,
         width:150,
         borderRadius: 10,
