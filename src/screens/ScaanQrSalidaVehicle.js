@@ -4,11 +4,13 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import {updateVehicles} from '../api/vehicles';
 import { getDbConnection,updateVehiclesdb } from '../utils/db';
 import NetInfo from '@react-native-community/netinfo';
+import useAuth from '../hooks/useAuth';
 
 export default function ScaanQrSalidaVehicle(props) {
   const {navigation} = props;
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const {estadoD} = useAuth();
   let wifi = false;
   NetInfo.fetch().then(state => {
     wifi = state.isConnected;
@@ -66,6 +68,7 @@ export default function ScaanQrSalidaVehicle(props) {
         const response = await updateVehicles(value);
         console.log(response)
         createQr(value,response);
+        estadoD(true);
       }
       else{
       const db = getDbConnection();

@@ -6,8 +6,11 @@ import useAuth from '../../hooks/useAuth';
 export default function Footer(props) {
   const {navigation} = props;
   const location = useAuth().location;
+  const estado= useAuth().estado;
+
   console.log(location)
   const [numVehicles, setNumVehicles] = useState("");
+  const [actualizacion, setActualizacion] = useState(false);
   const loadVehicles = async () =>{
       try{
         const response = await getlocationVehicles(location);
@@ -23,6 +26,11 @@ export default function Footer(props) {
   // console.log(props);
   const moveTo = () =>{
     navigation.navigate('AutosAlmacen');
+  }
+  if(actualizacion == true && estado ==true)
+  {
+    loadVehicles();
+    setActualizacion(false);
   }
   return (
     <SafeAreaView >

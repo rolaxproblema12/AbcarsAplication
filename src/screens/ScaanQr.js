@@ -15,6 +15,7 @@ export default function ScaanQr(props) {
   const [chofer, setChofer] = useState('Abraham');
   const location = useAuth().location;
   const userName = useAuth().auth;
+  const {estadoD} = useAuth();
   let wifi = "";
   NetInfo.fetch().then(state => {
     wifi = state.isConnected;
@@ -66,7 +67,7 @@ export default function ScaanQr(props) {
     try {
       let hora = new Date().toLocaleString();
       console.log(userName,location,data,mileage,hora)
-
+        estadoD(true);
         if(wifi!=="")
         {
           let response = await postVehicles(location,userName,mileage,hora,chofer,data);

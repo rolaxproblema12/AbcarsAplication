@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         height: 150,
     },
     headerText:{
-        marginTop: 40,
+        // marginTop: 0,
         color: 'grey',
         fontWeight: 'bold',
         fontSize: 30,
